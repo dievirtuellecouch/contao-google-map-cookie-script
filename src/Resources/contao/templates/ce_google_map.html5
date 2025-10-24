@@ -1,0 +1,25 @@
+<?php /* @var $this Contao\FrontendTemplate */ ?>
+<div class="ce_google_map">
+  <div class="cm-map-wrap" style="height:<?= htmlspecialchars((string) $this->height, ENT_QUOTES, 'UTF-8'); ?>px">
+    <div class="gm-placeholder" style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;padding:1rem;">
+      <div>
+        Bitte akzeptieren Sie die Cookie‑Richtlinien (Google Maps), um die Karte zu sehen.<br>
+        <a class="module-cookiebar-opener ccb-trigger" href="javascript:;" rel="noreferrer noopener">Cookies zurücksetzen</a>
+      </div>
+    </div>
+    <div
+      class="cm-map"
+      id="gm_<?= (int) $this->id ?>"
+      data-api-key="<?= htmlspecialchars((string) $this->apiKey, ENT_QUOTES, 'UTF-8'); ?>"
+      data-center="<?= htmlspecialchars((string) $this->latitude, ENT_QUOTES, 'UTF-8'); ?>,<?= htmlspecialchars((string) $this->longitude, ENT_QUOTES, 'UTF-8'); ?>"
+      data-address="<?= htmlspecialchars((string) $this->address, ENT_QUOTES, 'UTF-8'); ?>"
+      data-zoom="<?= (int) $this->zoom ?>"
+      <?php if ($this->marker): ?>
+        data-markers='<?= json_encode([["lat" => (float) $this->latitude, "lng" => (float) $this->longitude, "title" => (string) ($this->markerTitle ?: $this->address)]], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>'
+      <?php endif; ?>
+      data-stylejson='<?= htmlspecialchars((string) $this->styleJson, ENT_QUOTES, 'UTF-8'); ?>'
+      data-mapcolor='<?= htmlspecialchars((string) $this->mapColor, ENT_QUOTES, 'UTF-8'); ?>'
+      style="height:100%; width:100%"
+    ></div>
+  </div>
+</div>

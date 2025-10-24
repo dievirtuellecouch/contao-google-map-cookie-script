@@ -1,0 +1,7 @@
+services:
+  Websailing\GoogleMapBundle\:
+    resource: '../../*'
+    exclude: '../../{Resources,Tests}'
+    autowire: true
+    autoconfigure: true
+

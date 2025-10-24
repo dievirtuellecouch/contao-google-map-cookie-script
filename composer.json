@@ -1,0 +1,19 @@
+{
+  "name": "dievirtuellecouch/contao-google-map-cookie-script",
+  "description": "Google Map content element for Contao 5.3",
+  "type": "contao-bundle",
+  "license": "proprietary",
+  "require": {
+    "php": ">=8.1",
+    "contao/core-bundle": "^5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Websailing\\GoogleMapBundle\\": "src/"
+    }
+  },
+  "extra": {
+    "contao-manager-plugin": "Websailing\\GoogleMapBundle\\ContaoManager\\Plugin"
+  }
+}
+

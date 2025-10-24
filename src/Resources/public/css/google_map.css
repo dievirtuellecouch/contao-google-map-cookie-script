@@ -1,0 +1,14 @@
+.gm-placeholder {
+  background-color: #efefef; /* leichtes Grau */
+  color: rgb(88, 88, 91) !important;
+}
+
+.gm-placeholder a {
+  color: rgb(88, 88, 91) !important;
+  text-decoration: underline;
+}
+
+.gm-placeholder .module-cookiebar-opener.ccb-trigger {
+  display: inline-block;
+  margin-top: 0.25rem;
+}
