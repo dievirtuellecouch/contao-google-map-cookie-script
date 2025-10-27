@@ -1,6 +1,6 @@
 {
   "name": "dievirtuellecouch/contao-google-map-cookie-script",
-  "description": "Google Map content element for Contao 5.3",
+  "description": "Google Map DSGVO content element for Contao 5.3",
   "type": "contao-bundle",
   "license": "proprietary",
   "require": {
