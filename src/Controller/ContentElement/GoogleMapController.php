@@ -28,13 +28,24 @@ class GoogleMapController extends AbstractContentElementController
 
         // Register bundle CSS asset
         if (!isset($GLOBALS['TL_CSS']['websailing_google_map'])) {
-            $GLOBALS['TL_CSS']['websailing_google_map'] = 'bundles/websailinggooglemap/css/google_map.css|static';
+            $GLOBALS['TL_CSS']['websailing_google_map'] = 'bundles/googlemap/css/google_map.css|static';
         }
 
         $apiKey = (string) ($model->gmApiKey ?? '');
         if ($apiKey === '') {
-            $env = $_ENV['GOOGLE_MAPS_API_KEY'] ?? $_SERVER['GOOGLE_MAPS_API_KEY'] ?? \getenv('GOOGLE_MAPS_API_KEY');
-            $apiKey = (string) ($env ?: '');
+            try {
+                $c = \Contao\System::getContainer();
+                if ($c->hasParameter('google_maps_api_key')) {
+                    $apiKey = (string) $c->getParameter('google_maps_api_key');
+                }
+                if ($apiKey === '') {
+                    $env = $_ENV['GOOGLE_MAPS_API_KEY'] ?? $_SERVER['GOOGLE_MAPS_API_KEY'] ?? \getenv('GOOGLE_MAPS_API_KEY');
+                    if (!$env && $c->hasParameter('env(GOOGLE_MAPS_API_KEY)')) {
+                        $env = (string) $c->getParameter('env(GOOGLE_MAPS_API_KEY)');
+                    }
+                    $apiKey = (string) ($env ?: '');
+                }
+            } catch (\Throwable $e) {}
         }
 
         $template->apiKey = $apiKey;

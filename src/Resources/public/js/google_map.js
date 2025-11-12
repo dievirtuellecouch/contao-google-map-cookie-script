@@ -18,13 +18,11 @@
 
   function hidePlaceholderFor(el){
     if (!el) return;
-    // If wrapped, hide an overlay placeholder inside wrapper
     var wrap = el.closest('.cm-map-wrap');
     if (wrap){
       var ph = wrap.querySelector('.gm-placeholder');
       if (ph) ph.style.display = 'none';
     } else {
-      // Fallback: hide sibling placeholder
       var prev = el.previousElementSibling;
       if (prev && prev.classList && prev.classList.contains('gm-placeholder')) prev.style.display = 'none';
     }
@@ -33,7 +31,6 @@
   function loadGoogleMaps(apiKey) {
     if (w.google && w.google.maps) return Promise.resolve();
     if (loaderPromise) return loaderPromise;
-    // Do not attempt to load the API without a key to avoid NoApiKeys warnings
     if (!apiKey) {
       return Promise.reject(new Error('Missing Google Maps API key'));
     }
@@ -53,7 +50,7 @@
 
   function initOne(el) {
     var apiKey = el.getAttribute('data-api-key') || '';
-    if (!apiKey) return; // Skip elements without key; prevents loading without key
+    if (!apiKey) return;
     var centerStr = el.getAttribute('data-center') || '';
     var zoom = parseInt(el.getAttribute('data-zoom') || '6', 10);
     var address = el.getAttribute('data-address') || '';
@@ -94,7 +91,6 @@
         try {
           hidePlaceholderFor(el);
           var opts = { zoom: zoom, center: center, mapTypeControl: false, fullscreenControl: true };
-          // Apply styles from attributes
           if (styleJsonAttr) {
             try { opts.styles = JSON.parse(styleJsonAttr); } catch(e) {}
           }
@@ -130,7 +126,6 @@
             } catch(e) {}
           }
 
-          // If no markers and an address is provided, geocode it and show a marker
           if ((!markers || !markers.length) && address) {
             var finishGeocode = function(GeocoderCtor){
               try {
@@ -174,18 +169,16 @@
     if (firstKey) {
       loadGoogleMaps(firstKey).then(start).catch(function(err){ if (w.console && console.warn) console.warn('CM maps init error:', err); });
     } else {
-      // No global key found; allow per-element initOne() to attempt (and skip without key)
       start();
     }
   }
 
-  // Trigger automatically when this script is included (via consent bar)
   if (doc.readyState === 'loading') {
     doc.addEventListener('DOMContentLoaded', initAll);
   } else {
     initAll();
   }
 
-  // Optional manual trigger
   w.WebsailingGoogleMapInit = initAll;
 })();
+
